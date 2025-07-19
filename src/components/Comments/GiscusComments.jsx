@@ -11,7 +11,7 @@ const GiscusComments = ({ itemId, title }) => {
       </div>
       
       <Giscus
-        id="comments"
+        id={`comments-${itemId}`}
         repo="STller/life-v-log"
         repoId="R_kgDOPPIdCw"
         category="Announcements"
@@ -22,7 +22,7 @@ const GiscusComments = ({ itemId, title }) => {
         reactionsEnabled="1"
         emitMetadata="0"
         inputPosition="bottom"
-        theme="light_pink"
+        theme="light"
         lang="zh-CN"
         loading="lazy"
       />

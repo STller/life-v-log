@@ -1,0 +1,54 @@
+.giscus-comments {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 107, 157, 0.1);
+  backdrop-filter: blur(10px);
+}
+
+.comments-header {
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.comments-header h4 {
+  color: #ff6b9d;
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin: 0 0 0.5rem 0;
+}
+
+.comments-header p {
+  color: #5a6c7d;
+  font-size: 0.9rem;
+  margin: 0;
+  opacity: 0.8;
+}
+
+/* Giscus 样式定制 */
+.giscus {
+  max-width: 100%;
+}
+
+.giscus-frame {
+  border-radius: 12px;
+  border: none;
+}
+
+/* 移动端优化 */
+@media (max-width: 768px) {
+  .giscus-comments {
+    margin-top: 1.5rem;
+    padding: 1rem;
+    border-radius: 12px;
+  }
+  
+  .comments-header h4 {
+    font-size: 1.1rem;
+  }
+  
+  .comments-header p {
+    font-size: 0.85rem;
+  }
+}

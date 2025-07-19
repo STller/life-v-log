@@ -1,4 +1,5 @@
 import React from 'react';
+import GiscusComments from '../Comments/GiscusComments';
 import './TimelineItem.css';
 
 const TimelineItem = ({ item, index }) => {
@@ -64,6 +65,11 @@ const TimelineItem = ({ item, index }) => {
               ))}
             </div>
           )}
+          
+          <GiscusComments 
+            itemId={item.id} 
+            title={item.title}
+          />
         </div>
       </div>
     </div>

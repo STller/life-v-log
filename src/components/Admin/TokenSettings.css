@@ -1,0 +1,245 @@
+.token-settings-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1001;
+  padding: 2rem;
+}
+
+.token-settings-modal {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  width: 100%;
+  max-width: 700px;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.token-settings-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 2rem;
+  border-bottom: 1px solid #dee2e6;
+  background: #f8f9fa;
+  border-radius: 16px 16px 0 0;
+}
+
+.token-settings-header h2 {
+  margin: 0;
+  color: #333;
+  font-size: 1.25rem;
+}
+
+.close-button {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #6c757d;
+  padding: 0;
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+.close-button:hover {
+  background: #e9ecef;
+}
+
+.token-settings-content {
+  padding: 2rem;
+}
+
+.token-settings-content h3 {
+  color: #333;
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+}
+
+.current-token-info {
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  border-radius: 12px;
+  background: #f8f9fa;
+}
+
+.token-status {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.token-status.active span {
+  color: #28a745;
+  font-weight: 500;
+}
+
+.token-status.inactive span {
+  color: #dc3545;
+  font-weight: 500;
+}
+
+.clear-button {
+  background: #dc3545;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.875rem;
+}
+
+.clear-button:hover {
+  background: #c82333;
+}
+
+.token-input-section {
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  border-radius: 12px;
+  border: 2px solid #e9ecef;
+}
+
+.token-help {
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background: #e7f3ff;
+  border-radius: 8px;
+  border-left: 4px solid #007bff;
+}
+
+.token-help p {
+  margin: 0 0 1rem 0;
+  color: #0056b3;
+}
+
+.token-help ol {
+  margin: 0;
+  padding-left: 1.5rem;
+  color: #0056b3;
+}
+
+.token-help ol li {
+  margin-bottom: 0.5rem;
+  line-height: 1.5;
+}
+
+.token-help code {
+  background: #f8f9fa;
+  padding: 0.2rem 0.4rem;
+  border-radius: 4px;
+  font-family: 'Courier New', monospace;
+  color: #e83e8c;
+}
+
+.token-help a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.token-help a:hover {
+  text-decoration: underline;
+}
+
+.token-input-group {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.token-input {
+  flex: 1;
+  padding: 0.75rem;
+  border: 2px solid #dee2e6;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-family: 'Courier New', monospace;
+}
+
+.token-input:focus {
+  outline: none;
+  border-color: #ff6b9d;
+  box-shadow: 0 0 0 3px rgba(255, 107, 157, 0.1);
+}
+
+.save-token-button {
+  background: #ff6b9d;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  white-space: nowrap;
+}
+
+.save-token-button:hover:not(:disabled) {
+  background: #e55a87;
+}
+
+.save-token-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.error-message {
+  color: #dc3545;
+  background: #f8d7da;
+  padding: 0.75rem;
+  border-radius: 6px;
+  border: 1px solid #f5c6cb;
+  font-size: 0.9rem;
+}
+
+.token-security-info {
+  padding: 1.5rem;
+  background: #f8f9fa;
+  border-radius: 12px;
+  border-left: 4px solid #28a745;
+}
+
+.token-security-info ul {
+  margin: 0;
+  padding-left: 1.5rem;
+  color: #495057;
+}
+
+.token-security-info ul li {
+  margin-bottom: 0.5rem;
+  line-height: 1.5;
+}
+
+@media (max-width: 768px) {
+  .token-settings-overlay {
+    padding: 1rem;
+  }
+
+  .token-settings-header {
+    padding: 1rem 1.5rem;
+  }
+
+  .token-settings-content {
+    padding: 1.5rem;
+  }
+
+  .token-input-group {
+    flex-direction: column;
+  }
+
+  .current-token-info,
+  .token-input-section,
+  .token-security-info {
+    padding: 1rem;
+  }
+}

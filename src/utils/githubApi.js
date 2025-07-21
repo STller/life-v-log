@@ -1,12 +1,53 @@
 // GitHub API 工具模块
 const GITHUB_API_BASE = 'https://api.github.com';
-const OWNER = import.meta.env.REACT_APP_GITHUB_OWNER || 'STller';
-const REPO = import.meta.env.REACT_APP_GITHUB_REPO || 'life-v-log';
+const OWNER = 'STller';
+const REPO = 'life-v-log';
 const FILE_PATH = 'src/data/timelineData.js';
+const TOKEN_STORAGE_KEY = 'github_access_token';
+
+// Token 管理类
+export class TokenManager {
+  // 保存 Token（简单加密）
+  static save(token) {
+    try {
+      const encrypted = btoa(token);
+      localStorage.setItem(TOKEN_STORAGE_KEY, encrypted);
+      return true;
+    } catch {
+      return false;
+    }
+  }
+
+  // 获取 Token
+  static get() {
+    try {
+      const encrypted = localStorage.getItem(TOKEN_STORAGE_KEY);
+      return encrypted ? atob(encrypted) : null;
+    } catch {
+      return null;
+    }
+  }
+
+  // 清除 Token
+  static clear() {
+    localStorage.removeItem(TOKEN_STORAGE_KEY);
+  }
+
+  // 检查是否有 Token
+  static hasToken() {
+    return !!this.get();
+  }
+}
 
 // 获取 GitHub Token
 const getToken = () => {
-  return import.meta.env.REACT_APP_GITHUB_TOKEN;
+  // 优先从环境变量获取（开发环境）
+  if (import.meta.env.REACT_APP_GITHUB_TOKEN) {
+    return import.meta.env.REACT_APP_GITHUB_TOKEN;
+  }
+  
+  // 从用户输入获取（生产环境）
+  return TokenManager.get();
 };
 
 // 获取当前文件信息

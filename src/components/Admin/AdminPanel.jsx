@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { timelineData as defaultData } from '../../data/timelineData';
-import { commitToGitHub, detectConflict, validateToken, getLastSyncTime } from '../../utils/githubApi';
+import { commitToGitHub, detectConflict, validateToken, getLastSyncTime, TokenManager } from '../../utils/githubApi';
 import { LocalDataManager, useAutoSave } from '../../utils/localDataManager';
 import TimelineEditor from './TimelineEditor';
+import TokenSettings from './TokenSettings';
 import './AdminPanel.css';
 
 const AdminPanel = () => {
@@ -15,6 +16,7 @@ const AdminPanel = () => {
   const [isEditorOpen, setIsEditorOpen] = useState(false);
   const [syncStatus, setSyncStatus] = useState('idle');
   const [notification, setNotification] = useState(null);
+  const [isTokenSettingsOpen, setIsTokenSettingsOpen] = useState(false);
 
   // 启用自动保存
   const { lastSaved, isSaving } = useAutoSave(timelineData, isAuthenticated);
@@ -121,13 +123,20 @@ const AdminPanel = () => {
   const handleSync = async () => {
     if (syncStatus === 'syncing') return;
     
+    // 检查是否有 Token
+    if (!TokenManager.hasToken()) {
+      showNotification('请先设置 GitHub Token', 'error');
+      setIsTokenSettingsOpen(true);
+      return;
+    }
+    
     setSyncStatus('syncing');
     
     try {
       // 检查 Token 有效性
       const isValid = await validateToken();
       if (!isValid) {
-        throw new Error('GitHub Token 无效或已过期');
+        throw new Error('GitHub Token 无效或已过期，请重新设置');
       }
 
       // 检测冲突
@@ -152,7 +161,15 @@ const AdminPanel = () => {
       
     } catch (error) {
       setSyncStatus('error');
-      showNotification(`❌ 同步失败: ${error.message}`, 'error');
+      
+      // 如果是 Token 相关错误，引导用户重新设置
+      if (error.message.includes('Token') || error.message.includes('401')) {
+        showNotification(`❌ 同步失败: ${error.message}`, 'error');
+        setTimeout(() => setIsTokenSettingsOpen(true), 1000);
+      } else {
+        showNotification(`❌ 同步失败: ${error.message}`, 'error');
+      }
+      
       setTimeout(() => setSyncStatus('idle'), 3000);
     }
   };
@@ -237,6 +254,13 @@ const AdminPanel = () => {
         <h1>📝 时间线管理</h1>
         <div className="header-actions">
           <button 
+            className="token-settings-button"
+            onClick={() => setIsTokenSettingsOpen(true)}
+            title="设置 GitHub Token"
+          >
+            🔑 Token
+          </button>
+          <button 
             className="sync-button"
             onClick={handleSync}
             disabled={syncStatus === 'syncing'}
@@ -316,6 +340,15 @@ const AdminPanel = () => {
           item={editingItem}
           onSave={handleSave}
           onCancel={() => setIsEditorOpen(false)}
+        />
+      )}
+
+      {isTokenSettingsOpen && (
+        <TokenSettings
+          onClose={() => setIsTokenSettingsOpen(false)}
+          onTokenSaved={() => {
+            showNotification('Token 设置成功', 'success');
+          }}
         />
       )}
     </div>

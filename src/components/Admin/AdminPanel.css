@@ -115,6 +115,15 @@
   font-size: 0.9rem;
 }
 
+.token-settings-button {
+  background: #6f42c1;
+  color: white;
+}
+
+.token-settings-button:hover {
+  background: #5a36a3;
+}
+
 .sync-button {
   background: #ff6b9d;
   color: white;

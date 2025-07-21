@@ -1,4 +1,4 @@
-import React, { useState, useRef, useCallback } from 'react';
+import React, { useState, useRef, useCallback, useEffect } from 'react';
 import { ImageUtils } from '../../utils/imageUtils';
 import { GitHubImageAPI } from '../../utils/githubImageApi';
 import './ImageUploader.css';
@@ -10,6 +10,7 @@ const ImageUploader = ({ images = [], onImagesChange, maxImages = 5 }) => {
   const [uploadProgress, setUploadProgress] = useState({});
   const [error, setError] = useState('');
   const fileInputRef = useRef(null);
+  const uploadProcessedImagesRef = useRef(null);
 
   // 处理文件选择
   const handleFiles = useCallback(async (files) => {
@@ -42,7 +43,10 @@ const ImageUploader = ({ images = [], onImagesChange, maxImages = 5 }) => {
       if (successful.length > 0) {
         setProcessedImages(successful);
         setUploadState('uploading');
-        await uploadProcessedImages(successful);
+        // 使用 ref 调用上传函数，避免循环依赖
+        if (uploadProcessedImagesRef.current) {
+          await uploadProcessedImagesRef.current(successful);
+        }
       } else {
         setUploadState('error');
       }
@@ -51,7 +55,7 @@ const ImageUploader = ({ images = [], onImagesChange, maxImages = 5 }) => {
       setError(`图片处理失败: ${error.message}`);
       setUploadState('error');
     }
-  }, [images.length, maxImages, uploadProcessedImages]);
+  }, [images.length, maxImages]);
 
   // 上传处理过的图片
   const uploadProcessedImages = useCallback(async (processedImages) => {
@@ -113,6 +117,11 @@ const ImageUploader = ({ images = [], onImagesChange, maxImages = 5 }) => {
     }
   }, [images, onImagesChange]);
 
+  // 使用 useEffect 更新 ref 中的函数引用
+  useEffect(() => {
+    uploadProcessedImagesRef.current = uploadProcessedImages;
+  }, [uploadProcessedImages]);
+
   // 处理拖拽事件
   const handleDrag = useCallback((e) => {
     e.preventDefault();
@@ -153,6 +162,18 @@ const ImageUploader = ({ images = [], onImagesChange, maxImages = 5 }) => {
     setError('');
     setUploadState('idle');
   };
+
+  // 组件卸载时清理预览 URL
+  useEffect(() => {
+    return () => {
+      // 清理所有预览 URL
+      processedImages.forEach(result => {
+        if (result.previewUrl) {
+          ImageUtils.revokePreviewUrl(result.previewUrl);
+        }
+      });
+    };
+  }, [processedImages]);
 
   return (
     <div className="image-uploader">

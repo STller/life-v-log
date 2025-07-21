@@ -5,6 +5,7 @@ import { commitToGitHub, detectConflict, validateToken, getLastSyncTime, TokenMa
 import { LocalDataManager, useAutoSave } from '../../utils/localDataManager';
 import TimelineEditor from './TimelineEditor';
 import TokenSettings from './TokenSettings';
+import ErrorBoundary from './ErrorBoundary';
 import './AdminPanel.css';
 
 const AdminPanel = () => {
@@ -336,11 +337,13 @@ const AdminPanel = () => {
       </div>
 
       {isEditorOpen && (
-        <TimelineEditor
-          item={editingItem}
-          onSave={handleSave}
-          onCancel={() => setIsEditorOpen(false)}
-        />
+        <ErrorBoundary>
+          <TimelineEditor
+            item={editingItem}
+            onSave={handleSave}
+            onCancel={() => setIsEditorOpen(false)}
+          />
+        </ErrorBoundary>
       )}
 
       {isTokenSettingsOpen && (

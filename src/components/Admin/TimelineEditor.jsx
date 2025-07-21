@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import ImageUploader from './ImageUploader';
 import './TimelineEditor.css';
 
 const TimelineEditor = ({ item, onSave, onCancel }) => {
@@ -63,22 +64,11 @@ const TimelineEditor = ({ item, onSave, onCancel }) => {
     }));
   };
 
-  // 添加图片
-  const handleAddImage = () => {
-    const url = prompt('请输入图片URL（以 /life-v-log/images/ 开头）:');
-    if (url && url.trim()) {
-      setFormData(prev => ({
-        ...prev,
-        images: [...prev.images, url.trim()]
-      }));
-    }
-  };
-
-  // 删除图片
-  const handleRemoveImage = (index) => {
+  // 处理图片变化
+  const handleImagesChange = (newImages) => {
     setFormData(prev => ({
       ...prev,
-      images: prev.images.filter((_, i) => i !== index)
+      images: newImages
     }));
   };
 
@@ -210,28 +200,11 @@ const TimelineEditor = ({ item, onSave, onCancel }) => {
           </div>
 
           <div className="form-group">
-            <label>图片</label>
-            <button type="button" onClick={handleAddImage} className="add-image-button">
-              📷 添加图片
-            </button>
-            <div className="images-list">
-              {formData.images.map((image, index) => (
-                <div key={index} className="image-item">
-                  <img src={image} alt={`预览 ${index + 1}`} className="image-preview" />
-                  <span className="image-url">{image}</span>
-                  <button
-                    type="button"
-                    onClick={() => handleRemoveImage(index)}
-                    className="remove-image"
-                  >
-                    删除
-                  </button>
-                </div>
-              ))}
-            </div>
-            <div className="image-help">
-              <small>图片应放在 public/images/ 目录下，URL 格式: /life-v-log/images/filename.jpg</small>
-            </div>
+            <ImageUploader
+              images={formData.images}
+              onImagesChange={handleImagesChange}
+              maxImages={5}
+            />
           </div>
 
           <div className="form-actions">

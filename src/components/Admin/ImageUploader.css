@@ -1,0 +1,270 @@
+.image-uploader {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  border: 2px solid #e9ecef;
+  border-radius: 12px;
+  background: #f8f9fa;
+}
+
+.uploader-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.uploader-header h4 {
+  margin: 0;
+  color: #333;
+  font-size: 1.1rem;
+}
+
+.image-count {
+  background: #e9ecef;
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.875rem;
+  color: #495057;
+}
+
+.existing-images {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.image-preview-item {
+  position: relative;
+  aspect-ratio: 1;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 2px solid #dee2e6;
+  background: white;
+}
+
+.image-preview {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.remove-image-btn {
+  position: absolute;
+  top: 0.25rem;
+  right: 0.25rem;
+  background: rgba(220, 53, 69, 0.9);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 1.5rem;
+  height: 1.5rem;
+  font-size: 0.75rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.remove-image-btn:hover {
+  background: #dc3545;
+}
+
+.upload-area {
+  border: 2px dashed #dee2e6;
+  border-radius: 12px;
+  padding: 2rem;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background: white;
+  margin-bottom: 1rem;
+}
+
+.upload-area:hover:not(.uploading) {
+  border-color: #ff6b9d;
+  background: rgba(255, 107, 157, 0.05);
+}
+
+.upload-area.drag-active {
+  border-color: #ff6b9d;
+  background: rgba(255, 107, 157, 0.1);
+  transform: scale(1.02);
+}
+
+.upload-area.uploading {
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.upload-content {
+  pointer-events: none;
+}
+
+.upload-icon {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.upload-area p {
+  margin: 0.5rem 0;
+  color: #333;
+  font-weight: 500;
+}
+
+.upload-area small {
+  color: #6c757d;
+  font-size: 0.875rem;
+}
+
+.upload-progress {
+  margin-top: 1rem;
+  text-align: left;
+}
+
+.progress-item {
+  margin-bottom: 0.75rem;
+}
+
+.progress-item span {
+  display: block;
+  font-size: 0.875rem;
+  color: #495057;
+  margin-bottom: 0.25rem;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 4px;
+  background: #e9ecef;
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #ff6b9d, #c44569);
+  transition: width 0.3s ease;
+}
+
+.error-message {
+  background: #f8d7da;
+  border: 1px solid #f5c6cb;
+  border-radius: 6px;
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.error-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  color: #721c24;
+  font-size: 0.875rem;
+  line-height: 1.4;
+  white-space: pre-line;
+}
+
+.clear-error-btn {
+  background: none;
+  border: none;
+  color: #721c24;
+  cursor: pointer;
+  padding: 0;
+  margin-left: 0.5rem;
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+.clear-error-btn:hover {
+  color: #dc3545;
+}
+
+.upload-tips {
+  background: #e7f3ff;
+  border-left: 4px solid #007bff;
+  padding: 1rem;
+  border-radius: 4px;
+  margin-top: 1rem;
+}
+
+.upload-tips h5 {
+  margin: 0 0 0.5rem 0;
+  color: #0056b3;
+  font-size: 0.9rem;
+}
+
+.upload-tips ul {
+  margin: 0;
+  padding-left: 1.2rem;
+  color: #0056b3;
+}
+
+.upload-tips li {
+  font-size: 0.875rem;
+  line-height: 1.4;
+  margin-bottom: 0.25rem;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .image-uploader {
+    padding: 0.75rem;
+  }
+
+  .existing-images {
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 0.75rem;
+  }
+
+  .upload-area {
+    padding: 1.5rem 1rem;
+  }
+
+  .upload-icon {
+    font-size: 1.5rem;
+  }
+
+  .upload-tips {
+    padding: 0.75rem;
+  }
+}
+
+/* 动画效果 */
+@keyframes pulse {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.upload-area.uploading .upload-icon {
+  animation: pulse 1.5s infinite;
+}
+
+/* 加载状态 */
+.upload-area.uploading .upload-content::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 2rem;
+  height: 2rem;
+  margin: -1rem 0 0 -1rem;
+  border: 2px solid #ff6b9d;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  z-index: 1;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

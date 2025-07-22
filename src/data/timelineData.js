@@ -9,8 +9,7 @@ export const timelineData = [
       "温泉"
     ],
     "images": [
-      "/life-v-log/images/timeline-1753151033553-w2ofzq.jpeg",
-      "/life-v-log/images/timeline-1753151033629-vgaiwc.jpeg"
+      "/life-v-log/images/timeline-1753151033553-w2ofzq.jpeg"
     ],
     "id": 2
   },
@@ -38,5 +37,5 @@ export const timelineData = [
 // tags: 标签数组 (用于分类和筛选)
 // type: 类型 (milestone-里程碑, special-特殊日子, travel-旅行, daily-日常)
 
-// 最后更新时间: 2025-07-22T02:24:24.154Z
+// 最后更新时间: 2025-07-22T02:52:32.961Z
 // 更新方式: 在线编辑器

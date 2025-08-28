@@ -1,6 +1,20 @@
 export const timelineData = [
   {
-    "date": "2025-07-22",
+    "date": "2019-12-28",
+    "title": "看鸭鸭🦆",
+    "description": "和可爱的小鸭鸭一起玩耍，温馨有趣的时光",
+    "type": "daily",
+    "tags": [
+      "日常",
+      "可爱"
+    ],
+    "images": [
+      "/life-v-log/images/timeline-duck-2019-12-28.jpeg"
+    ],
+    "id": 3
+  },
+  {
+    "date": "2019-12-08",
     "title": "一起温泉♨️",
     "description": "舒舒服服的一起泡温泉，冷飕飕",
     "type": "daily",
@@ -14,7 +28,7 @@ export const timelineData = [
     "id": 2
   },
   {
-    "date": "2024-01-01",
+    "date": "2019-11-16",
     "title": "有情人终成眷属🫶",
     "description": "我们一起吃了2020 的半天妖",
     "type": "milestone",
